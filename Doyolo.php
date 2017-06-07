@@ -13,17 +13,17 @@ $last_line = system('./darknet detector test cfg/voc.data cfg/tiny-yolo-voc.cfg 
 if(strpos($last_line, "car") !== false)
 {
   //  system('mv '.$filename.'.jpg results/' .$filename.'.jpg', $retval);
-  push("차량에 주의하세요.");
+  push("차량에 주의하세요.", $filename);
 }
 else if(strpos($last_line, "motorbike") !== false)
-push("오토바이에 주의하세요.");
+push("오토바이에 주의하세요.", $filename);
 else if(strpos($last_line, "bicycle") !== false)
-push("자전거에 주의하세요.");
+push("자전거에 주의하세요.", $filename);
 else if(strpos($last_line, "traffic light") !== false)
-push("행단보도에 주의하세요.");
+push("행단보도에 주의하세요.", $filename);
 
 
-  function push($message)
+  function push($message, $filename)
   {
     $params = array ('message' => $message,'imgurl' => 'http://ec2-13-124-33-214.ap-northeast-2.compute.amazonaws.com/darknet/'.$filename.'.jpg');
     $query = http_build_query ($params);
