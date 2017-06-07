@@ -1,10 +1,7 @@
 <?php
 $filename = $_POST['filename'];
 // $filename = "auto";
-$id = $_POST['id'];
-$year = $_POST['year'];
-$month = $_POST['month'];
-$day = $_POST['day'];
+
 $last_line = system('./darknet detector test cfg/voc.data cfg/tiny-yolo-voc.cfg tiny-yolo-voc.weights data/'.$filename.'.jpg -out '.$filename, $retval);
 // $last_line = system('./darknet detector test cfg/voc.data cfg/tiny-yolo-voc.cfg tiny-yolo-voc.weights data/auto.jpg -out auto', $retval);
  // $last_line = system('./darknet detect cfg/yolo.cfg yolo.weights data/image1.jpg -out image1', $retval);
