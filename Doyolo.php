@@ -1,5 +1,6 @@
 <?php
 $filename = $_POST['filename'];
+// $filename = "auto";
 $id = $_POST['id'];
 $year = $_POST['year'];
 $month = $_POST['month'];
@@ -21,10 +22,9 @@ else if(strpos($last_line, "bicycle") !== false)
 push("자전거에 주의하세요.", $filename);
 else if(strpos($last_line, "traffic light") !== false)
 push("행단보도에 주의하세요.", $filename);
-
-
   function push($message, $filename)
   {
+    updateIsAccident($filename);
     $params = array ('message' => $message,'imgurl' => 'http://ec2-13-124-33-214.ap-northeast-2.compute.amazonaws.com/darknet/'.$filename.'.jpg');
     $query = http_build_query ($params);
     // Create Http context details
@@ -43,5 +43,17 @@ push("행단보도에 주의하세요.", $filename);
                       false,
                       $context);
                       echo $result;
+  }
+  function updateIsAccident($filename)
+  {
+    $con = mysqli_connect("ec2-13-124-108-18.ap-northeast-2.compute.amazonaws.com", "root", "leastb", "fcm");
+  	mysqli_set_charset($con,"utf8");
+  	if (mysqli_connect_errno($con))
+  	{
+  		 echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  	}
+  	$query = "update image set isaccident = 1 where imgname = '$filename';";
+  	$res = mysqli_query($con,$query);
+  	mysqli_close($con);
   }
 ?>
