@@ -54,6 +54,12 @@ push("행단보도에 주의하세요.", $filename);
   	}
   	$query = "update image set isaccident = 1 where imgname = '$filename';";
   	$res = mysqli_query($con,$query);
+    $query = "select watchdayID from image where imgname = '$filename';";
+  	$res = mysqli_query($con,$query);
+    $row = mysqli_fetch_array($res);
+  	$WDindex = $row['watchdayID'];
+    $query = "update watchday set accident = 1 where WDindex = $WDindex;";
+  	$res = mysqli_query($con,$query);
   	mysqli_close($con);
   }
 ?>
